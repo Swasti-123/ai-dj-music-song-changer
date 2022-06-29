@@ -3,6 +3,17 @@ body{
 }
 
 .heading{
-    width: 100%;
+    font-size: 23px;
+    width:100%;
+    margin:0px;
 }
 
+canvas{
+    border-radius: 30px;
+    border: 10px white ridge ;
+}
+
+.note{
+    font-size: 15px;
+    color: white;
+}
