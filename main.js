@@ -12,6 +12,11 @@ song_play=0;
 scoreRightWrist=0;
 scoreLeftWrist=0;
 
+function preload(){
+    sound1=loadSound("music.mp3");
+    sound2=loadSound("music2.mp3");
+}
+
 function setup(){
     canvas= createCanvas(600, 500);
     canvas.center();
@@ -27,10 +32,23 @@ function modelLoaded(){
     console.log("PoseNet Is Initialized!")
 }
 
-function preload(){
-    sound1=loadSound("music.mp3");
-    sound2=loadSound("music2.mp3");
-}
+
+    function gotPoses(results){
+        if (results.length > 0){
+            console.log(results);
+            scoreRightWrist = results[0].pose.keypoints[10].score;
+            scoreLeftWrist = results[0].pose.keypoints[9].score;
+            console.log("scoreRightWrist = " + scoreRightWrist + "scoreLeftWrist = " + scoreLeftWrist );
+    
+            Lx=results[0].pose.leftWrist.x;
+            Ly=results[0].pose.leftWrist.y;
+    
+            Rx=results[0].pose.rightWrist.x;
+            Ry=results[0].pose.rightWrist.y;
+    
+        }
+    }
+
 
 function draw(){
     image(video, 0,0, 600,500);
@@ -64,20 +82,3 @@ function draw(){
 
 
 
-function gotPoses(){
-    function gotPoses(results){
-        if (results.length > 0){
-            console.log(results);
-            scoreRightWrist = results[0].pose.keypoints[10].score;
-            scoreLeftWrist = results[0].pose.keypoints[9].score;
-            console.log("scoreRightWrist = " + scoreRightWrist + "scoreLeftWrist = " + scoreLeftWrist );
-    
-            Lx=results[0].pose.leftWrist.x;
-            Ly=results[0].pose.leftWrist.y;
-    
-            Rx=results[0].pose.rightWrist.x;
-            Ry=results[0].pose.rightWrist.y;
-    
-        }
-    }
-}
